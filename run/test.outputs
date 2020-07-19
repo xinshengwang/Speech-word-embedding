@@ -1,0 +1,175 @@
+iteration = 0 | loss = 8.749215 
+iteration = 5 | loss = 8.686980 
+iteration = 10 | loss = 8.655494 
+iteration = 15 | loss = 8.571486 
+iteration = 20 | loss = 9.422722 
+iteration = 25 | loss = 8.660324 
+iteration = 30 | loss = 9.867983 
+iteration = 35 | loss = 8.804548 
+iteration = 40 | loss = 8.592264 
+iteration = 45 | loss = 8.537896 
+iteration = 50 | loss = 8.602299 
+iteration = 55 | loss = 8.659264 
+iteration = 60 | loss = 8.930777 
+iteration = 65 | loss = 8.691492 
+iteration = 70 | loss = 8.498331 
+iteration = 75 | loss = 8.406600 
+iteration = 80 | loss = 8.522181 
+iteration = 85 | loss = 8.413607 
+iteration = 90 | loss = 8.444229 
+iteration = 95 | loss = 8.539088 
+iteration = 100 | loss = 8.827665 
+iteration = 105 | loss = 9.419600 
+iteration = 110 | loss = 8.535576 
+iteration = 115 | loss = 8.491839 
+iteration = 120 | loss = 8.764982 
+iteration = 125 | loss = 8.987574 
+iteration = 130 | loss = 8.549766 
+iteration = 135 | loss = 8.917566 
+iteration = 140 | loss = 9.312084 
+iteration = 145 | loss = 8.633529 
+iteration = 150 | loss = 8.603625 
+iteration = 155 | loss = 8.742336 
+iteration = 160 | loss = 8.569370 
+iteration = 165 | loss = 8.462753 
+iteration = 170 | loss = 8.737211 
+iteration = 175 | loss = 8.838619 
+iteration = 180 | loss = 8.632460 
+iteration = 185 | loss = 8.604029 
+start loading image
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+finish loading image
+start loading speech
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+epoch 1 | loss 8.60 | True 113.0 | Predict 194.0 | Real 598.0 | P 58.25%
+
+iteration = 0 | loss = 8.495597 
+iteration = 5 | loss = 8.625600 
+iteration = 10 | loss = 9.301766 
+iteration = 15 | loss = 8.569452 
+iteration = 20 | loss = 8.803313 
+iteration = 25 | loss = 8.749800 
+iteration = 30 | loss = 8.718714 
+iteration = 35 | loss = 8.681265 
+iteration = 40 | loss = 8.452479 
+iteration = 45 | loss = 8.662440 
+iteration = 50 | loss = 8.542903 
+iteration = 55 | loss = 9.012434 
+iteration = 60 | loss = 8.368383 
+iteration = 65 | loss = 8.873075 
+iteration = 70 | loss = 8.417713 
+iteration = 75 | loss = 8.497156 
+iteration = 80 | loss = 8.660316 
+iteration = 85 | loss = 8.666164 
+iteration = 90 | loss = 8.574485 
+iteration = 95 | loss = 8.865349 
+iteration = 100 | loss = 8.763754 
+iteration = 105 | loss = 8.607880 
+iteration = 110 | loss = 8.722466 
+iteration = 115 | loss = 8.745422 
+iteration = 120 | loss = 8.450337 
+iteration = 125 | loss = 8.623748 
+iteration = 130 | loss = 8.487986 
+iteration = 135 | loss = 8.552553 
+iteration = 140 | loss = 8.495024 
+iteration = 145 | loss = 8.543392 
+iteration = 150 | loss = 8.390577 
+iteration = 155 | loss = 9.003328 
+iteration = 160 | loss = 8.500937 
+iteration = 165 | loss = 8.419039 
+iteration = 170 | loss = 8.645975 
+iteration = 175 | loss = 8.645285 
+iteration = 180 | loss = 8.466053 
+iteration = 185 | loss = 8.418411 
+start loading image
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+finish loading image
+start loading speech
+0
+1
+2
+3
+4
+5
+slurmstepd: error: *** STEP 5421356.0 ON insy11 CANCELLED AT 2020-07-14T16:25:59 DUE TO TIME LIMIT ***
