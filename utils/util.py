@@ -246,8 +246,8 @@ def reconstruction_loss(input,output,length,args):
     seq = seq.unsqueeze(0).repeat(input.shape[0],1)
     length = length.unsqueeze(-1).repeat(1,input.shape[1])
     mask = (seq <= length).int().unsqueeze(-1).repeat(1,1,input.shape[-1]).cuda()
-    input = input*mask
-    output = output*mask
-    # loss = ((input - output) ** 2).sum() / (mask.sum() + 1e-7)
-    loss = nn.MSELoss()(input*args.penalty,output*args.penalty)
+    input = input*mask*args.penalty
+    output = output*mask*args.penalty
+    loss = ((input - output) ** 2).sum() / (mask.sum() + 1e-7)
+    # loss = nn.MSELoss()(input*args.penalty,output*args.penalty)
     return loss

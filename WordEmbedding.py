@@ -35,18 +35,18 @@ if __name__ == '__main__':
 
     parser.add_argument('--data_path', type=str, default= 'X:/staff-bulk/ewi/insy/MMC/xinsheng/data/coco/',
                         help='directory of database')   
-    parser.add_argument('--save_root',type=str,default='outputs',
+    parser.add_argument('--save_root',type=str,default='outputs/P10',
                         help='path for saving model and results')    
     # parameters
-    parser.add_argument("--epoch", type=int, default=5,
+    parser.add_argument("--epoch", type=int, default=120,
                         help="max epoch")
     parser.add_argument("--evaluation",type=bool, default=True,
                         help='True for evaluation only')
-    parser.add_argument("--start_epoch",type=int,default=0,
+    parser.add_argument("--start_epoch",type=int,default=90,
                         help='resume the pre-trained parameter')
     parser.add_argument("--optim", type=str, default="adam",
                         help="training optimizer", choices=["sgd", "adam"])
-    parser.add_argument('--batch_size', default=24, type=int, 
+    parser.add_argument('--batch_size', default=4, type=int, 
                         help='mini-batch size')
     parser.add_argument('--lr', '--learning-rate', default=0.001, type=float,
                         help='initial learning rate')
@@ -58,7 +58,7 @@ if __name__ == '__main__':
                         help='weight decay (default: 1e-4)')  
     parser.add_argument('--LAMDA',default=5,type=float,
                         help='smooth3')
-    parser.add_argument('--penalty',default=5,type=float,
+    parser.add_argument('--penalty',default=10,type=float,
                         help='penalty for mel spec reconstruction loss')
 
 
@@ -87,7 +87,7 @@ if __name__ == '__main__':
         drop_last=False, shuffle=False,num_workers=cfg.workers,collate_fn=pad_collate_we,worker_init_fn=worker_init_fn) 
     
     Encoder = WENet.Encoder(cfg.WD.input_size,cfg.WD.hidden_size,args)
-    Decoder = WENet.Decoder(args,cfg.WD.hidden_size,80)
+    Decoder = WENet.Decoder_BLSTM(args,cfg.WD.hidden_size,40)
 
     
     train_we.train(Encoder,Decoder,train_loader,args)

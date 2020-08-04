@@ -5,6 +5,9 @@ import numpy as np
 from utils.config import cfg
 from utils.util import adjust_learning_rate, AverageMeter, word_prediction, reconstruction_loss
 import pdb
+import matplotlib.pyplot as plt
+import librosa.display as display
+
 
 def train(encoder,decoder,train_loader,args):
     if cfg.CUDA:
@@ -15,10 +18,10 @@ def train(encoder,decoder,train_loader,args):
     save_model_path = os.path.join(exp_dir,'models')
     if not os.path.exists(save_model_path):
         os.makedirs(save_model_path)
-    epoch = cfg.WBDNet.start_epoch
+    epoch = args.start_epoch
     if epoch != 0:
-        encoder.load_state_dict(torch.load("%s/models/WE_encoder%d.pth" % (exp_dir,epoch)))
         decoder.load_state_dict(torch.load("%s/models/WE_decoder%d.pth" % (exp_dir,epoch)))
+        encoder.load_state_dict(torch.load("%s/models/WE_encoder%d.pth" % (exp_dir,epoch)))
         print('loaded parametres from epoch %d' % epoch)
 
     trainables_en = [p for p in encoder.parameters() if p.requires_grad]
@@ -71,9 +74,9 @@ def train(encoder,decoder,train_loader,args):
                 
         
         if epoch % 5 == 0:
-            torch.save(decoder.state_dict(),
-                "%s/models/WE_encoder%d.pth" % (exp_dir,epoch))
             torch.save(encoder.state_dict(),
+                "%s/models/WE_encoder%d.pth" % (exp_dir,epoch))
+            torch.save(decoder.state_dict(),
                 "%s/models/WE_decoder%d.pth" % (exp_dir,epoch))
             # true_num,total_predict,real_num,P = evaluation(encoder,decoder,val_loader,val_image_loader,args)
             # info = "epoch {} | loss {:.2f} | True {} | Predict {} | Real {} | P {:.2%}\n".format(epoch,loss,true_num,total_predict,real_num,P)

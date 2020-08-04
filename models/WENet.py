@@ -67,7 +67,7 @@ class Decoder(nn.Module):
         super(Decoder,self).__init__()
         self.rnn = nn.LSTMCell(input_size,hidden_size)
         self.hidden_size = hidden_size
-
+        self.LSTM = nn.LSTM(80, 80, 1, batch_first=True)
     def init_hidden_state(self,batch_size):
         # mean = input.mean(dim=1)
         h = torch.zeros(batch_size,self.hidden_size).cuda()
@@ -127,5 +127,66 @@ class Decoder(nn.Module):
             h,c = self.rnn(input[:batch_size_t,t,:], (h[:batch_size_t],c[:batch_size_t])
                             )
             filterbank[:batch_size_t,t,:] = h
+        filterbank,_ = self.LSTM(filterbank)
+        return filterbank
 
+
+class Decoder_BLSTM(nn.Module):
+    def __init__(self,args,input_size,hidden_size=40,num_layers=2,dropout=0.0,bidirectional=True):
+        super(Decoder_BLSTM,self).__init__()
+        self.hidden_size = hidden_size
+        self.LSTM = nn.LSTM(input_size, hidden_size, num_layers, batch_first=True,bidirectional=bidirectional)
+    def init_hidden_state(self,batch_size):
+        # mean = input.mean(dim=1)
+        h = torch.zeros(batch_size,self.hidden_size).cuda()
+        c = torch.zeros(batch_size,self.hidden_size).cuda()
+        return h, c
+
+    def get_frame_feature(self,input,word_id):
+        '''
+        input: the word level embedding from the encoder
+        word_id: frame level word id (the frame belongs to which word feature)
+        output: frame level embedding--each frame is a word embedding
+        '''
+        # input = input.transpose(2,1)
+        batch_size = input.shape[0]
+        mask = torch.from_numpy(np.arange(batch_size)).unsqueeze(1).repeat(1,word_id.shape[1]).cuda()
+        index = input.shape[1] * mask + word_id
+        input_flat = input.view(-1,input.shape[-1])
+        index = index.view(-1)
+        over_ind = torch.where(index>=(input_flat.shape[0]-1))[0]
+        if len(over_ind) != 0 :
+            index[over_ind] = input_flat.shape[0] - 1
+        
+        select = input_flat[index.long()]
+        output = select.view(batch_size,mask.shape[1],-1)
+        return output 
+        
+
+
+    def forward(self,input,mask,length):
+        """
+        take the work boundary as the begining of the next word.
+        """
+        max_length = length.max()
+        batch_size = input.shape[0]
+        end_indx = length.unsqueeze(-1).long().cuda() - 1
+        mask[:,0] = 0
+        mask = mask.scatter_(1,end_indx,1)
+        
+        # get the word id of each frame
+        # shape(batch_size, max_length) [0,0,..,1,1,1...,...]
+        mask_sum = torch.zeros(batch_size,1).cuda()
+        for i in range(max_length):
+            mask_slice = mask[:,i].unsqueeze(-1)
+            mask_sum += mask_slice
+            if i == 0:
+                word_id = mask_sum.clone()
+            else:
+                word_id = torch.cat([word_id,mask_sum],1)   
+        
+        word_id[:,-1] = word_id[:,-2]
+        
+        input = self.get_frame_feature(input,word_id)
+        filterbank,_ = self.LSTM(input)
         return filterbank

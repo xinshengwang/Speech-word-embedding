@@ -19,7 +19,7 @@ __C.WBDNet.num_layers = 2
 __C.WD = edict()
 __C.WD.imgsize = 256
 __C.WD.input_size = 80
-__C.WD.hidden_size = 256
+__C.WD.hidden_size = 512
 
 __C.WD.smooth1 = 5
 __C.WD.smooth2 = 5

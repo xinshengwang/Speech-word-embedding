@@ -414,6 +414,7 @@ class WE_Data(data.DataLoader):
         mel_name = wav_name.replace('.wav','.npy')
         mel_path = self.audio_dir + '/mel/' + mel_name 
         mel =  np.load(mel_path,allow_pickle=True)
+        mel = (mel-mel.min())/(1.0-mel.min())
         
         json_path = self.audio_dir + '/json/' + wav_name.replace('.wav','.json')
         json_dict = self.load_json(json_path)
